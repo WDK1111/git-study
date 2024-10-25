@@ -1,0 +1,49 @@
+* git add
+작업 후 변경내역을 스테이지에 추가하는 명령어.
+예시>
+$ git add test.txt		// test.txt 파일 등록
+$ git add .		// 모든 변경된 파일 등록
+
+* git commit 
+변경내역 저장 명렁어
+예시 >
+$ git commit -m "변경내역 or 수정내역"
+
+*git status
+현재 깃 변경내역 확인 명령어, 변경된 파일 확인 가능
+
+*git log
+커밋 내역 확인 명령어
+
+* git push
+현재 로컬저장소의 변경내역을 원격저장소에 업로드
+예시>
+$ git push -u origin main		// orign에 저장된 원격저장소 위치에 main 브랜치의 변경내역 업로드
+
+*git remote add [원격저장소 명칭] [원격저장소 주소] 
+로컬저장소의 원격저장소 위치 저장 명령어.
+보통 깃허브 원격저장소는 orign 이란 명칭으로 저장한다.
+예시>
+git remote add origin https://github.com/WDK1111/git-study.git		//https 주소
+git remote add origin git@github.com:WDK1111/git-study.git		//SSH 주소
+
+*git reset [취소단계] [commit_id]
+커밋 내용을 취소하는 명령어. log에서 확인한 commit_ID 를 기준으로 해당 상태로 롤백.
+예시>
+$ git reset --hard 05bd7cfe4927db0f0f53ddc3d46a620435f8a38f	// 해당 커밋상태로 롤백.
+--hard	완전 롤백. 커밋 취소 및 변경내역 삭제.
+--mixed	커밋 취소, 변경내역 남아있음 (스테이지에 없음)
+--soft	커밋 취소, 변경내역 남아있음 (스테이지 on)
+
+*git branch
+기능 변경 및 비교용 사본 저장을 위한 가지 branch 생성
+$ git branch 			현재 위치한 브랜치 확인 및 브랜치 리스트 확인
+$ git branch [브랜치이름]		현재 커서 위치(커밋지점)에서 브랜치 생성
+$ git branch [브랜치이름] [commit_id]	커밋 id의 위치에서 브랜치 생성
+$ git branch -d [브랜치 이름]	브랜치 삭제, merge 이후 가능
+$ git branch -D [브랜치 이름]	브랜치 분기 후 생성된 히스토리 모두 제거
+
+*git checkout
+깃 브랜치 이동 명령어
+git checkout [브랜치이름]		해당 브랜치로 이동
+git checkout -b [브랜치이름]		해당 브랜치를 생성하고 이동
