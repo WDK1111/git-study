@@ -35,6 +35,21 @@ $ git reset --hard 05bd7cfe4927db0f0f53ddc3d46a620435f8a38f	// 해당 커밋상�
 --mixed	커밋 취소, 변경내역 남아있음 (스테이지에 없음)
 --soft	커밋 취소, 변경내역 남아있음 (스테이지 on)
 
+$git reset HEAD~[숫자]	git 커밋 히스토리에서 몇개의 commit 전으로 복귀. 파일들은 남아있음.
+$git reset HEAD~1		1단계 전 커밋으로 리셋.
+
+* .gitignore 파일
+git 기록에서 무시하거나 숨길 파일을 명시하여 add/commit 대상에서 제외함.
+
+*git revert
+대상 commit의 변경내역을 취소하여 삭제. 리셋과 달리 커밋이력은 남아있고 리버트 커밋이 추가.
+$ git revert [커밋_id]		커밋id의 커밋내용을 취소하고 커밋.
+$ git revert [커밋_id1]..[커밋_id2]	커밋id1,2 의 커밋을 취소하고 커밋.
+$ git revert --no-commit [커밋_id]     커밋id의 커밋내용을 취소. 스테이징 상태.
+
+
+
+
 *git branch
 기능 변경 및 비교용 사본 저장을 위한 가지 branch 생성
 $ git branch 			현재 위치한 브랜치 확인 및 브랜치 리스트 확인
@@ -47,3 +62,19 @@ $ git branch -D [브랜치 이름]	브랜치 분기 후 생성된 히스토리 �
 깃 브랜치 이동 명령어
 git checkout [브랜치이름]		해당 브랜치로 이동
 git checkout -b [브랜치이름]		해당 브랜치를 생성하고 이동
+
+*git switch
+깃 브랜치 이동 명령어, 신규추가명령어.
+git switch [브랜치이름]		해당 브랜치로 이동
+git switch -c [브랜치이름]  		해당 브랜치를 생성하고 이동
+
+*git merge
+브랜치로 분기된 내용을 하나로 합치는 것.
+$git merge [브랜치이름]		대상 브랜치의 변경내역을 현재의 브랜치에 가져옴.
+
+*git rebase
+분기된 브랜치를 합침. 대상 브랜치의 커밋 히스토리를 현재 브랜치의 Head에 연결하여 하나의 브랜치로 변경.
+$git rebase [브랜치이름]
+
+
+

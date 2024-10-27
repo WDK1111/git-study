@@ -53,8 +53,16 @@ $vim /home/YOU/.ssh/.config
 Host github.com
   Hostname ssh.github.com
   Port 443		// .config에 추가 혹은 저장
+  User git			// 443 포트는 ssh.github.com HTTPS 포트.
+			// 22 포트는 git@github.com SSH 포트, 자동으로 연결되지만
+			// 네트워크 환경에 따라 22가 막힐경우를 대비해 이렇게 우회연결 설정.
 $cat ~/.ssh/id_ed25519.pub
 >~~~~~~~~~~~		// 내용물 키 복사
+
+
+
+
+
 
 깃허브 계정 세팅Setting-> SSH and GPG keys -> New SSH key
 key 란에 복사한 키 기입하여 추가
