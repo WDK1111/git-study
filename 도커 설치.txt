@@ -1,0 +1,53 @@
+도커 설치 과정
+- OEL7 기준.
+- 패키지 관리자 yum
+
+1. root 계정 진입
+$ su -
+
+2. 패키지 관리자 업데이트 & 도커 저장소 연결
+# yum update -y
+# yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+- OEL7은 CentOS와 호환되므로 CentOS Docker 저장소를 사용해도 문제없음
+
+3. 도커 설치
+# yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+yum install docker-ce docker-ce-cli containerd.io
+
+- 설치 과정에서 GPG 키를 확인하는 것은 패키지 무결성 확인을 위함.
+- 공식 사이트에 접속하여 확인할 것.
+- 리눅스 버전에 따라 일부 패키지가 없다는 에러와 함께 설치가 안될경우, 해당 패키지 설치 필요.
+Error: Package: containerd.io-1.6.33-3.1.el7.x86_64 (docker-ce-stable)
+           Requires: container-selinux >= 2:2.74
+Error: Package: docker-ce-rootless-extras-26.1.4-1.el7.x86_64 (docker-ce-stable)
+           Requires: slirp4netns >= 0.4
+Error: Package: docker-ce-rootless-extras-26.1.4-1.el7.x86_64 (docker-ce-stable)
+           Requires: fuse-overlayfs >= 0.7
+ You could try using --skip-broken to work around the problem
+ You could try running: rpm -Va --nofiles --nodigest
+
+container-selinux, slirp4netns, fuse-overlayfs의 3가지 패키지 설치 필요
+
+3-1. container-selinux
+container-tools 모듈 활성화(Oracle Linux에서는 일부 컨테이너 관련 패키지가 container-tools 모듈에 포함)
+# yum install -y oracle-epel-release-el7
+# yum-config-manager --enable ol7_addons ol7_optional_latest ol7_UEKR5
+# yum install -y fuse-overlayfs container-selinux slirp4netns
+
+3-2. slirp4netns
+기존 centOS 레포지토리에 문제가 생겨 기존 url 먹통, 구글링 통해 수동으로 파일 다운받을것.
+# rpm -ivh fuse-overlayfs-0.7.2-6.el7_8.x86_64.rpm 
+
+3-3. fuse-overlayfs
+기존 centOS 레포지토리에 문제가 생겨 기존 url 먹통, 구글링 통해 수동으로 파일 다운받을것.
+# rpm -ivh fuse-overlayfs-0.7.2-6.el7_8.x86_64.rpm
+-> fuse3 패키지가 필요하다고 설치 안되는 경우 있음. 해당 경우 아래 명령어 통해 설치후 다시 시도.
+# yum install -y fuse3 fuse3-libs
+
+
+dockerfile에 옵션 입력하여 빌드하였을 경우, 아래와같이 이미지 ID 저장 필요
+ => => writing image sha256:c14d80e02abda785f4f5f17510db170eecff4b38eb7642d351cda4e6f28c9e9a
+
+docker run c14d80e02abda785f4f5f17510db170eecff4b38eb7642d351cda4e6f28c9e9a
